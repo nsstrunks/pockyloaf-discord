@@ -1,0 +1,7 @@
+#This is YOUR discord bot token
+discord.token=
+
+github.source=https://github.com/nsstrunks/pockyloaf-discord
+
+jisho.url=http://jisho.org/api/v1/
+
