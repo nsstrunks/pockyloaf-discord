@@ -7,6 +7,8 @@ import com.nessynet.discord.pockyloaf.helpers.MessageBufferBuilder;
 import com.nessynet.discord.pockyloaf.model.JishoData;
 import com.nessynet.discord.pockyloaf.model.JishoWord;
 import com.nessynet.discord.pockyloaf.services.JishoDictionary;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import sx.blah.discord.api.EventSubscriber;
 
 import java.io.UnsupportedEncodingException;
@@ -18,12 +20,16 @@ import java.util.Arrays;
  */
 public class JishoListener {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(JishoListener.class);
+
     @EventSubscriber
     public void messageReceived(JishoEvent event) throws UnsupportedEncodingException {
+        LOGGER.info("{} triggered a jisho event: {}", event.getMessage().getAuthor().getName(), event.getMessage().getContent());
         String command = event.getMessage().getContent();
         JishoDictionary dictionary = JishoDictionary.getInstance();
         if (event.getMessage().getContent().startsWith("!jisho")) {
             String commandQuery = CommandHelper.getInstance().stripCommand(command);
+            LOGGER.debug("Making external call to Jisho.org for: {}", commandQuery);
             JishoWord word = dictionary.search(commandQuery);
             StringBuilder response = new StringBuilder();
             if (word != null && word.getData().length > 0) {

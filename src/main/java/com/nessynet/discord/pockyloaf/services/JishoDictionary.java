@@ -37,6 +37,7 @@ public class JishoDictionary {
 
         String url = baseUrl+"search/words";
         WebResource webResource = client.resource(url).queryParam("keyword",searchString);
+        logger.info("Querying external: {}", webResource.getURI().toString());
         ClientResponse response = webResource.get(ClientResponse.class);
         JishoWord jishoWord = response.getEntity(JishoWord.class);
 
