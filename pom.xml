@@ -69,7 +69,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>com.nessynet.discord.pockyloaf.Pockyloaf</mainClass>
+                            <mainClass>com.nessynet.discord.pockyloaf.App</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
