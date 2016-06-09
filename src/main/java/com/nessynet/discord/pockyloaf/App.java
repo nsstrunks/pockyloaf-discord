@@ -13,18 +13,20 @@ public class App {
 
     private static final Logger logger = LoggerFactory.getLogger(App.class);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         Pockyloaf pockyloaf = new Pockyloaf();
         PropertyHelper propHelper = PropertyHelper.getInstance();
         ClientBuilder builder = new ClientBuilder().withToken(propHelper.getProperty("discord.token"));
-
-        while(!Pockyloaf.client.isReady()) {
-            try {
-                logger.info("Starting Pockyloaf...");
-                pockyloaf.run(builder);
-            } catch (Exception e) {
-                logger.error("Pockyloaf is unhappy: ", e);
+        while(true) {
+            if(!Pockyloaf.client.isReady()) {
+                try {
+                    logger.info("Starting Pockyloaf...");
+                    pockyloaf.run(builder);
+                } catch (Exception e) {
+                    logger.error("Pockyloaf is unhappy: ", e);
+                }
             }
+            Thread.sleep(5000);
         }
     }
 }
