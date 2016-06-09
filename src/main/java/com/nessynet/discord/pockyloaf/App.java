@@ -1,7 +1,9 @@
 package com.nessynet.discord.pockyloaf;
 
+import com.nessynet.discord.pockyloaf.helpers.PropertyHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import sx.blah.discord.api.ClientBuilder;
 import sx.blah.discord.util.DiscordException;
 
 /**
@@ -13,11 +15,16 @@ public class App {
 
     public static void main(String[] args) {
         Pockyloaf pockyloaf = new Pockyloaf();
-        try {
-            logger.info("Starting Pockyloaf...");
-            pockyloaf.run();
-        } catch (DiscordException e) {
-            logger.error("Discord is unhappy: ",e);
+        PropertyHelper propHelper = PropertyHelper.getInstance();
+        ClientBuilder builder = new ClientBuilder().withToken(propHelper.getProperty("discord.token"));
+
+        while(!Pockyloaf.client.isReady()) {
+            try {
+                logger.info("Starting Pockyloaf...");
+                pockyloaf.run(builder);
+            } catch (Exception e) {
+                logger.error("Pockyloaf is unhappy: ", e);
+            }
         }
     }
 }

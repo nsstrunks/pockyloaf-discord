@@ -10,8 +10,6 @@ import sx.blah.discord.api.ClientBuilder;
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.util.DiscordException;
 
-import java.io.IOException;
-
 /**
  * Created by nss on 6/3/2016.
  */
@@ -21,11 +19,9 @@ public class Pockyloaf {
 
     public static IDiscordClient client;
 
-    private PropertyHelper propHelper = PropertyHelper.getInstance();
-
-    public void run() throws DiscordException {
+    public void run(ClientBuilder builder) throws DiscordException {
         logger.info("Creating new Discord client...");
-        client = new ClientBuilder().withToken(propHelper.getProperty("discord.token")).login();
+        client = builder.login();
         logger.info("Discord client connected.");
         logger.info("Registering listeners...");
         client.getDispatcher().registerListener(new Dispatcher());
