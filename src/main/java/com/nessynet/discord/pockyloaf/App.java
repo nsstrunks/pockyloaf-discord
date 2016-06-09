@@ -13,10 +13,12 @@ public class App {
 
     private static final Logger logger = LoggerFactory.getLogger(App.class);
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws Exception {
         Pockyloaf pockyloaf = new Pockyloaf();
         PropertyHelper propHelper = PropertyHelper.getInstance();
         ClientBuilder builder = new ClientBuilder().withToken(propHelper.getProperty("discord.token"));
+        pockyloaf.run(builder);
+
         while(true) {
             if(!Pockyloaf.client.isReady()) {
                 try {
